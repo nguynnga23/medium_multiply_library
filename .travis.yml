@@ -1,12 +1,13 @@
+dist: focal
 language: python
 python:
   - 3.8
 
-# Update pip to the latest version
 before_install:
   - python --version
-  - pip install -U pip
   - pip install -U pip setuptools wheel twine
+  - pip install 'urllib3<2'
+
 install:
   - pip install -r requirements.txt
 
@@ -15,6 +16,7 @@ script:
   - python setup.py sdist bdist_wheel
   - ls dist
   - twine check dist/*
+
 deploy:
   provider: pypi
   username: "__token__"
