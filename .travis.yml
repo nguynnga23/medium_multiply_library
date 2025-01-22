@@ -6,13 +6,15 @@ python:
 before_install:
   - python --version
   - pip install -U pip
-
+  - pip install -U pip setuptools wheel twine
 install:
   - pip install -r requirements.txt
 
 script:
   - python -m unittest tests/multiplication_tests.py
-
+  - python setup.py sdist bdist_wheel
+  - ls dist
+  - twine check dist/*
 deploy:
   provider: pypi
   username: "__token__"
